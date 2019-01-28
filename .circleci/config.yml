@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  one:
     working_directory: ~/main
     docker:
       - image: appsilon/ci-base:1.0
@@ -21,3 +21,30 @@ jobs:
       - run:
           command: |
             Rscript test.R
+    two:
+      working_directory: ~/main
+      docker:
+        - image: appsilon/ci-base:1.0
+      steps:
+        - checkout
+        - restore_cache:
+            keys:
+              - deps1-{{ .Branch }}-{{ checksum "DESCRIPTION" }}
+              - deps1-{{ .Branch }}
+              - deps1-
+        - run:
+            command: |
+              R -e 'devtools::install_deps(dependencies = TRUE)'
+        - save_cache:
+            key: deps1-{{ .Branch }}-{{ checksum "DESCRIPTION" }}
+            paths:
+              - "/usr/local/lib/R/site-library"
+        - run:
+            command: |
+              Rscript second_test.R
+workflows:
+  version: 2
+  one_and_two:
+    jobs:
+      - one
+      - two
