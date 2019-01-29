@@ -20,7 +20,7 @@ jobs:
             - "/usr/local/lib/R/site-library"
       - run:
           command: |
-            Rscript test.R
+            Rscript test/test.R
   two:
     working_directory: ~/main
     docker:
@@ -41,7 +41,7 @@ jobs:
             - "/usr/local/lib/R/site-library"
       - run:
           command: |
-            Rscript second_test.R
+            Rscript test/second_test.R
 workflows:
   version: 2
   one_and_two:
