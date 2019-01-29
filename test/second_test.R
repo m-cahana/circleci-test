@@ -8,6 +8,7 @@ library(readxl)
 # actual_size <- nrow(random_half_split(iris))
 # expect_equal(actual_size, 75)
 
+test_data <- read_excel('test/test_data.xlsx')
 max <- test_data %>% filter(object=='max') %>% pull(value)
 test_that("max of dataset is less than or equal to 9", {
 
