@@ -10,6 +10,14 @@ library(readxl)
 
 test_data <- read_excel('test/test_data.xlsx')
 max <- test_data %>% filter(object=='max') %>% pull(value)
-expect_lte(max, 10)
+test_that("max of dataset is less than or equal to 10", {
+
+  expect_lte(max, 10)
+
+})
 min <- test_data %>% filter(object=='min') %>% pull(value)
-expect_gte(min, 0)
+test_that("min of dataset is greater than or equal to 0", {
+
+  expect_gte(min, 0)
+
+})
